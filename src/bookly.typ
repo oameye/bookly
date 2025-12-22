@@ -20,7 +20,7 @@
   colors: default-colors,
   title-page: default-title-page,
   config-options: default-config-options,
-  body
+  body,
 ) = context {
   // Document's properties
   set document(author: author, title: title)
@@ -60,7 +60,7 @@
 
 
   // References
-  set ref(supplement: it => none)
+  set ref(supplement: none)
 
   // Citations
   show cite: it => {
@@ -73,22 +73,17 @@
 
   // Figures
   let numbering-fig = n => {
-      let h1 = counter(heading).get().first()
-      numbering(states.num-pattern-fig.get(), h1, n)
+    let h1 = counter(heading).get().first()
+    numbering(states.num-pattern-fig.get(), h1, n)
   }
 
-  show figure.where(kind: image): set figure(
-      supplement: fig-supplement,
-      numbering: numbering-fig,
-      gap: 1.5em
-    )
+  show figure.where(kind: image): set figure(supplement: fig-supplement, numbering: numbering-fig, gap: 1.5em)
 
   set figure.caption(position: top) if tufte
   show: show-if(tufte, it => {
     show figure.caption: content => margin-note({
-        text(size: 0.9em, content)
-      }
-    )
+      text(size: 0.9em, content)
+    })
     it
   })
   show figure: set figure.caption(separator: [ -- ])
@@ -102,9 +97,7 @@
   set math.equation(numbering: numbering-eq)
 
   // Tables
-  show figure.where(kind: table): set figure(
-    numbering: numbering-fig,
-  )
+  show figure.where(kind: table): set figure(numbering: numbering-fig)
 
   show figure.where(kind: table): it => {
     set figure.caption(position: top)
@@ -112,8 +105,8 @@
   }
 
   // Lists
-  set list(marker: [#text(fill:colors.primary, size: 1.75em)[#sym.bullet]])
-  set enum(numbering: n => text(fill:book-colors.primary)[#n.])
+  set list(marker: [#text(fill: colors.primary, size: 1.75em)[#sym.bullet]])
+  set enum(numbering: n => text(fill: book-colors.primary)[#n.])
 
   // Title page
   if title-page != none {
@@ -125,22 +118,12 @@
   // Page properties for tufte layout
   set-page-properties()
   if tufte {
-    set-margin-note-defaults(
-      stroke: none,
-      side: right,
-      margin-right: 5.5cm,
-      margin-left: -1.5cm,
-    )
+    set-margin-note-defaults(stroke: none, side: right, margin-right: 5.5cm, margin-left: -1.5cm)
   } else {
     set-margin-note-defaults(stroke: none)
   }
 
-  set page(
-    margin: (
-      left: 1.47cm,
-      right: 6.93cm
-    )
-  ) if tufte
+  set page(margin: (left: 1.47cm, right: 6.93cm)) if tufte
 
   // Headings
   show: theme.with(colors: book-colors)
