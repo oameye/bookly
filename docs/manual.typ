@@ -446,7 +446,7 @@ The information boxes described above are built using the #cmd("custom-box") fun
 
 The template provides two functions to create title pages: one for a book and one for a thesis :
 
-#command("book-page-title",
+#command("book-title-page",
 ..args(
 	subtitle: "Book subtitle",
   edition: "First edition",
@@ -485,7 +485,7 @@ The template provides two functions to create title pages: one for a book and on
 ```
 ]
 
-#command("thesis-page-title",
+#command("thesis-title-page",
 ..args(
 	type: "phd",
   school: "School name",
